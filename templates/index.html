@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>JobDhundo</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(circle at top left, #dbeafe 0%, transparent 35%),
+                radial-gradient(circle at bottom right, #ede9fe 0%, transparent 35%),
+                #f8fafc;
+            color: #172033;
+            min-height: 100vh;
+        }
+
+        /* ================================
+           HEADER
+        ================================= */
+
+        .header {
+            padding: 24px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 23px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: #4f46e5;
+        }
+
+        .badge {
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            font-size: 13px;
+            color: #64748b;
+            box-shadow: 0 5px 20px rgba(15, 23, 42, 0.05);
+        }
+
+        /* ================================
+           MAIN
+        ================================= */
+
+        .main {
+            max-width: 1100px;
+            margin: 35px auto 70px;
+            padding: 0 24px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            margin: 0;
+            font-size: clamp(36px, 5vw, 58px);
+            line-height: 1.05;
+            letter-spacing: -2px;
+        }
+
+        .hero h1 span {
+            color: #4f46e5;
+        }
+
+        .hero p {
+            max-width: 650px;
+            margin: 18px auto 0;
+            color: #64748b;
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        /* ================================
+           MAIN CARD
+        ================================= */
+
+        .card {
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow:
+                0 25px 70px rgba(15, 23, 42, 0.10),
+                0 4px 12px rgba(15, 23, 42, 0.04);
+            backdrop-filter: blur(12px);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 28px;
+        }
+
+        /* ================================
+           INPUT SECTIONS
+        ================================= */
+
+        .section-title {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #1e293b;
+        }
+
+        .section-subtitle {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-bottom: 14px;
+        }
+
+        .upload-box {
+            border: 2px dashed #cbd5e1;
+            border-radius: 18px;
+            min-height: 270px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 25px;
+            cursor: pointer;
+            transition: 0.25s ease;
+            background: #f8fafc;
+        }
+
+        .upload-box:hover {
+            border-color: #6366f1;
+            background: #eef2ff;
+            transform: translateY(-2px);
+        }
+
+        .upload-icon {
+            width: 65px;
+            height: 65px;
+            margin: 0 auto 15px;
+            border-radius: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #eef2ff;
+            color: #4f46e5;
+            font-size: 28px;
+        }
+
+        .upload-text {
+            font-weight: 700;
+            margin-bottom: 7px;
+        }
+
+        .upload-help {
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        #resume {
+            display: none;
+        }
+
+        .file-name {
+            margin-top: 12px;
+            color: #4f46e5;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 270px;
+            resize: vertical;
+            border: 1px solid #dbe3ef;
+            border-radius: 18px;
+            padding: 18px;
+            font-family: inherit;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #1e293b;
+            background: #f8fafc;
+            outline: none;
+            transition: 0.2s ease;
+        }
+
+        textarea:focus {
+            background: white;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.10);
+        }
+
+        textarea::placeholder {
+            color: #94a3b8;
+        }
+
+        /* ================================
+           BUTTON
+        ================================= */
+
+        .analyze-button {
+            width: 100%;
+            margin-top: 28px;
+            border: none;
+            border-radius: 14px;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            color: white;
+            background: linear-gradient(
+                135deg,
+                #4f46e5,
+                #7c3aed
+            );
+            cursor: pointer;
+            box-shadow:
+                0 12px 25px rgba(79, 70, 229, 0.25);
+            transition: 0.2s ease;
+        }
+
+        .analyze-button:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                0 16px 30px rgba(79, 70, 229, 0.32);
+        }
+
+        .analyze-button:active {
+            transform: translateY(0);
+        }
+
+        /* ================================
+           ERROR
+        ================================= */
+
+        .error {
+            margin-top: 20px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #b91c1c;
+            font-size: 14px;
+        }
+
+        /* ================================
+           RESULTS
+        ================================= */
+
+        .results {
+            margin-top: 35px;
+            padding-top: 30px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 22px;
+        }
+
+        .results-title {
+            font-size: 22px;
+            margin: 0;
+        }
+
+        .resume-name {
+            color: #64748b;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .method-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .method-card {
+            padding: 22px;
+            border-radius: 18px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+        }
+
+        .method-name {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 12px;
+        }
+
+        .score {
+            font-size: 34px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .bar {
+            height: 9px;
+            margin-top: 15px;
+            border-radius: 999px;
+            overflow: hidden;
+            background: #e2e8f0;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(
+                90deg,
+                #4f46e5,
+                #8b5cf6
+            );
+        }
+
+        .method-description {
+            margin-top: 12px;
+            color: #94a3b8;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .note {
+            margin-top: 18px;
+            padding: 14px 16px;
+            border-radius: 14px;
+            background: #f8fafc;
+            color: #64748b;
+            font-size: 12px;
+            line-height: 1.5;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* ================================
+           FOOTER
+        ================================= */
+
+        .footer {
+            text-align: center;
+            margin-top: 35px;
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        /* ================================
+           RESPONSIVE
+        ================================= */
+
+        @media (max-width: 800px) {
+
+            .header {
+                padding: 20px;
+            }
+
+            .main {
+                margin-top: 20px;
+                padding: 0 16px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .grid,
+            .method-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                letter-spacing: -1px;
+            }
+
+            .results-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <div class="logo">
+        Job<span>Dhundo</span>
+    </div>
+
+    <div class="badge">
+        TF-IDF + SBERT
+    </div>
+
+</header>
+
+
+<main class="main">
+
+
+    <section class="hero">
+
+        <h1>
+            Find Your Next
+            <span>Match</span>
+        </h1>
+
+        <p>
+            Compare your resume with a job description using
+            keyword-based and semantic NLP matching.
+        </p>
+
+    </section>
+
+
+    <section class="card">
+
+
+        <form
+            action="/analyze"
+            method="POST"
+            enctype="multipart/form-data"
+            id="analysisForm"
+        >
+
+
+            <div class="grid">
+
+
+                <!-- RESUME UPLOAD -->
+
+                <div>
+
+                    <div class="section-title">
+                        01 · Upload Resume
+                    </div>
+
+                    <div class="section-subtitle">
+                        PDF, DOCX or TXT
+                    </div>
+
+
+                    <label
+                        for="resume"
+                        class="upload-box"
+                    >
+
+                        <div>
+
+                            <div class="upload-icon">
+                                ↑
+                            </div>
+
+                            <div class="upload-text">
+                                Choose your resume
+                            </div>
+
+                            <div class="upload-help">
+                                Click here to browse your files
+                            </div>
+
+                            <div
+                                class="file-name"
+                                id="fileName"
+                            ></div>
+
+                        </div>
+
+                    </label>
+
+                    <input
+                        type="file"
+                        id="resume"
+                        name="resume"
+                        accept=".pdf,.docx,.txt"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- JOB DESCRIPTION -->
+
+                <div>
+
+                    <div class="section-title">
+                        02 · Job Description
+                    </div>
+
+                    <div class="section-subtitle">
+                        Paste the complete job description
+                    </div>
+
+
+                    <textarea
+                        name="job_description"
+                        placeholder="Paste the job title, responsibilities, requirements, skills and qualifications here..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="analyze-button"
+                id="analyzeButton"
+            >
+
+                Analyze Resume →
+
+            </button>
+
+
+        </form>
+
+
+        {% if error %}
+
+            <div class="error">
+                {{ error }}
+            </div>
+
+        {% endif %}
+
+
+        {% if tfidf_score is defined %}
+
+
+            <section class="results">
+
+
+                <div class="results-header">
+
+                    <div>
+
+                        <h2 class="results-title">
+                            Matching Results
+                        </h2>
+
+                        <div class="resume-name">
+                            Analyzed resume:
+                            <strong>{{ resume_name }}</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="method-grid">
+
+
+                    <!-- TF-IDF -->
+
+                    <div class="method-card">
+
+                        <div class="method-name">
+                            TF-IDF + Cosine Similarity
+                        </div>
+
+                        <div class="score">
+                            {{ tfidf_score }}
+                        </div>
+
+                        <div class="bar">
+
+                            <div
+                                class="bar-fill"
+                                style="width: {{ (tfidf_score * 100)|round(1) }}%;"
+                            ></div>
+
+                        </div>
+
+                        <div class="method-description">
+                            Measures similarity mainly from important
+                            words and terms shared between the resume
+                            and job description.
+                        </div>
+
+                    </div>
+
+
+                    <!-- SBERT -->
+
+                    <div class="method-card">
+
+                        <div class="method-name">
+                            SBERT + Cosine Similarity
+                        </div>
+
+                        <div class="score">
+                            {{ sbert_score }}
+                        </div>
+
+                        <div class="bar">
+
+                            <div
+                                class="bar-fill"
+                                style="width: {{ (sbert_score * 100)|round(1) }}%;"
+                            ></div>
+
+                        </div>
+
+                        <div class="method-description">
+                            Measures semantic similarity using
+                            embeddings from a pre-trained
+                            Sentence-BERT model.
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="note">
+                    These values are similarity scores produced by
+                    the two matching methods. They are not hiring
+                    probabilities or percentages of candidate
+                    qualification.
+                </div>
+
+
+            </section>
+
+
+        {% endif %}
+
+
+    </section>
+
+
+    <div class="footer">
+
+        JobDhundo · Resume–Job Matching using NLP
+
+    </div>
+
+
+</main>
+
+
+<script>
+
+    const resumeInput =
+        document.getElementById("resume");
+
+    const fileName =
+        document.getElementById("fileName");
+
+    const form =
+        document.getElementById("analysisForm");
+
+    const button =
+        document.getElementById("analyzeButton");
+
+
+    resumeInput.addEventListener(
+        "change",
+        function () {
+
+            if (this.files.length > 0) {
+
+                fileName.textContent =
+                    this.files[0].name;
+
+            } else {
+
+                fileName.textContent = "";
+
+            }
+
+        }
+    );
+
+
+    form.addEventListener(
+        "submit",
+        function () {
+
+            button.textContent =
+                "Analyzing Resume...";
+
+            button.style.opacity =
+                "0.75";
+
+            button.style.pointerEvents =
+                "none";
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>
