@@ -19,10 +19,18 @@ from firebase_admin import credentials, firestore
 FIREBASE_PROJECT_ID = "jobdhundo-24f3b"
 
 
+
 @st.cache_resource
 def get_firestore_client():
     if not firebase_admin._apps:
-        cred = credentials.Certificate("firebase-key.json")
+        if "firebase" in st.secrets:
+            # Use Streamlit Cloud Secrets
+            firebase_config = dict(st.secrets["firebase"])
+            cred = credentials.Certificate(firebase_config)
+        else:
+            # Use local Firebase key
+            cred = credentials.Certificate("firebase-key.json")
+
         firebase_admin.initialize_app(
             cred,
             {"projectId": FIREBASE_PROJECT_ID}
